@@ -20,13 +20,16 @@ for(i in n){
                     header = TRUE)
   
   Data$Method = ifelse(Data$Method == "ar", 
-                       "AR test", Data$Method)
+                       "AR", Data$Method)
   
   Data$Method = ifelse(Data$Method == "cvm", 
                        "CVM", Data$Method)
   
   Data$Method = ifelse(Data$Method == "ks", 
                        "KS", Data$Method)
+  
+  Data$Method = ifelse(Data$Method == "ad", 
+                       "AD", Data$Method)
   
   d = paste0("Data", k)
   

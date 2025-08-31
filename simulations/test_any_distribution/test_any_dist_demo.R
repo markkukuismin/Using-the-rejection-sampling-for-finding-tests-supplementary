@@ -35,7 +35,7 @@ ar_dist = function(x, f0 = "dnorm", ...){
 
 set.seed(1)
 
-n = 20 # 20, 30, 50
+n = 50 # 20, 30, 50
 
 # Power (H_0 not true)
 
@@ -71,7 +71,7 @@ if(pdf == "dlnormp"){
 M = 10^4
 
 ks_stat = ar_stat = 
-  cvm_stat = matrix(0, M, length(scale_alt))
+  cvm_stat = ad_stat = matrix(0, M, length(scale_alt))
 
 for(i in 1:length(scale_alt)){
   
@@ -137,6 +137,13 @@ for(i in 1:length(scale_alt)){
                               df = 3,
                               sigma = ref_param)
       
+      ad_stat[j, i] = goftest::ad.test(x,
+                                    null = "plst",
+                                    mu = 0,
+                                    df = 3,
+                                    sigma = ref_param)$p.value
+      
+      
     }
     
   }
@@ -190,10 +197,12 @@ beta_cvm = apply(cvm_stat, 2, f)
 qar = quantile(ar_null, 0.05)
 beta_ar = colMeans(ar_stat < qar)
 
+beta_ad = apply(ad_stat, 2, f)
+
 # Type 1 error 
 
 ks_er = ar_stat_er =
-  cvm_stat_er = matrix(0, M, length(scale_alt))
+  cvm_stat_er = ad_stat_er = matrix(0, M, length(scale_alt))
 
 for(i in 1:length(scale_alt)){
   
@@ -260,6 +269,13 @@ for(i in 1:length(scale_alt)){
                                  sigma = r,
                                  df = 3)
       
+      ad_stat_er[j, i] = goftest::ad.test(x,
+                                          null = "plst",
+                                          mu = 0,
+                                          df = 3,
+                                          sigma = r)$p.value
+      
+      
     }
     
   }
@@ -274,21 +290,24 @@ error_cvm = apply(cvm_stat_er, 2, f)
 
 error_ar = colMeans(ar_stat_er < qar)
 
+error_ad = apply(ad_stat_er, 2, f)
+
 ##
 
 Method = rep(c("ar",
                "ks",
-               "cvm"), 
+               "cvm",
+               "ad"), 
              each = length(scale_alt))
 
-beta_v = c(beta_ar, beta_ks, beta_cvm)
+beta_v = c(beta_ar, beta_ks, beta_cvm, beta_ad)
 
-error_v = c(error_ar, error_ks, error_cvm)
+error_v = c(error_ar, error_ks, error_cvm, error_ad)
 
 Data = data.frame(Method = Method,
                   power = beta_v,
                   error = error_v,
-                  scale = rep(scale_alt, 3))
+                  scale = rep(scale_alt, 4))
 
 ggplot(data = Data, 
        aes(scale, power, color = Method)) +
