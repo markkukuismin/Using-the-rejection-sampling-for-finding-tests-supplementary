@@ -24,7 +24,9 @@ png(filename = "demos/null_and_alt_distributions/figures/ar_stat_suff.png",
     units = "mm",
     res = 700)
 
-par(mfrow = c(1, 3), cex.axis=2)
+par(mfrow = c(1, 3), 
+    cex.axis=1.5,
+    mar = c(5.1, 5.1, 4.1, 2.1))
 
 for(n in N){
   
@@ -58,7 +60,7 @@ for(n in N){
        xlab = expression(nT(X)),
        ylab = "Probability",
        lwd = 4,
-       cex.lab = 1.5,
+       cex.lab = 2,
        col = "darkgray")
   
   xx = 0:n
@@ -71,9 +73,11 @@ for(n in N){
         lwd = 4, 
         col = rgb(red=0, green=0, blue=1, alpha=0.5))
   
+  abline(v = n*rho, lty = 2, lwd = 4)
+  
   lab = paste0("(", LETTERS[i], ")")
   
-  title(main = lab, adj = 0, cex.main = 2)
+  title(main = lab, adj = 0, cex.main = 2.5)
   
   xx = seq(0, n, length.out = 10^4)
   
@@ -111,7 +115,9 @@ png(filename = "demos/null_and_alt_distributions/figures/ar_stat_sum.png",
     units = "mm",
     res = 700)
 
-par(mfrow = c(1, 3), cex.axis=2)
+par(mfrow = c(1, 3), 
+    cex.axis=1.5,
+    mar = c(5.1, 5.1, 4.1, 2.1))
 
 for(n in N){
   
@@ -148,7 +154,7 @@ for(n in N){
        xlab = expression(nT(X)),
        ylab = "Probability",
        lwd = 4,
-       cex.lab = 1.5,
+       cex.lab = 2,
        col = "darkgray")
   
   xx = 0:n
@@ -160,6 +166,8 @@ for(n in N){
         type = "h", 
         lwd = 4, 
         col = rgb(red=0, green=0, blue=1, alpha=0.5))
+  
+  abline(v = n*rho, lty = 2, lwd = 4)
   
   xx = seq(0, n, length.out = 10^4)
   
