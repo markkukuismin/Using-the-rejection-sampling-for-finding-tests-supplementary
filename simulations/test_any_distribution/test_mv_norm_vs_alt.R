@@ -14,7 +14,7 @@ ar_dist = function(x){
   
   f0 = mvtnorm::dmvnorm(x)
   
-  n = length(x)
+  n = nrow(x)
   
   fhat = kdevine::kdevine(x)
   fhat = kdevine::dkdevine(x, fhat)
