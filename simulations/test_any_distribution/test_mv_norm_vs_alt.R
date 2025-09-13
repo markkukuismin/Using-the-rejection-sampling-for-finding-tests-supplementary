@@ -38,11 +38,11 @@ ar_dist = function(x){
 
 set.seed(1)
 
-n = 20 # 20, 30, 50
+n = 50 # 20, 30, 50
 
 # Power (H_0 not true)
 
-alt_dist = "unif" # mvnorm, mvnormmix, mvt, rmvlogis, unif
+alt_dist = "mvnorm" # mvnorm, mvnormmix, mvt, rmvlogis, unif
 
 p = 3
 
@@ -111,15 +111,15 @@ for(j in 1:M){
   energy_stat[j] = energy::mvnorm.test(x,
                                        R = 100)$p.value
   
-  Tn_stat[j] = mvnormalTest::mvnTest(x, B = 100)$mv.test["p-value"]
+  Tn_stat[j] = as.numeric(mvnormalTest::mvnTest(x, B = 100)$mv.test["p-value"])
   
-  hz_stat[j] = mvnormalTest::mhz(x)$mv.test[2]
+  hz_stat[j] = as.numeric(mvnormalTest::mhz(x)$mv.test[2])
   
   mvtemp = mvnormalTest::msw(x)
   
-  roys_stat[j] = mvtemp$mv.test[1, 3]
+  roys_stat[j] = as.numeric(mvtemp$mv.test[1, 3])
   
-  vage_stat[j] = mvtemp$mv.test[2, 3]
+  vage_stat[j] = as.numeric(mvtemp$mv.test[2, 3])
   
   cat("\r", j)
   
