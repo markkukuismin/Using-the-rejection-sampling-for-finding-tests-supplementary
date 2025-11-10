@@ -1,2 +1,2 @@
 # Using-the-rejection-sampling-for-finding-tests-supplementary
-Supplementary code for the article "Using the rejection sampling for finding tests".
+Supplementary code for the article "Using the rejection sampling for finding tests". The preprint of the article is available at [https://doi.org/10.48550/arXiv.2509.10325](https://doi.org/10.48550/arXiv.2509.10325)
