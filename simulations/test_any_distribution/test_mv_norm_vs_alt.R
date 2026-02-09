@@ -16,9 +16,11 @@ ar_dist = function(x){
   
   n = nrow(x)
   
-  fhat = kdevine::kdevine(x)
-  fhat = kdevine::dkdevine(x, fhat)
-  
+  #fhat = kdevine::kdevine(x)
+  #fhat = kdevine::dkdevine(x, fhat)
+
+  fhat = Rfast2::kernel(x)
+    
   #u = VineCopula::pobs(x)
   #fhat = kdevine::kdevinecop(u)
   #fhat = kdevine::dkdevinecop(u, fhat)
@@ -38,11 +40,11 @@ ar_dist = function(x){
 
 set.seed(1)
 
-n = 50 # 20, 30, 50
+n = 20 # 20, 30, 50
 
 # Power (H_0 not true)
 
-alt_dist = "mvnorm" # mvnorm, mvnormmix, mvt, rmvlogis, unif
+alt_dist = "mvt" # mvnorm, mvnormmix, mvt, rmvlogis, unif
 
 p = 3
 

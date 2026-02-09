@@ -17,9 +17,10 @@ ar_dist = function(x, f0 = "dnorm", ...){
   
   n = length(x)
   
-  fhat = kdevine::kde1d(x)
-  fhat = kdevine::dkde1d(x, fhat)
-  
+  #fhat = kdevine::kde1d(x)
+  #fhat = kdevine::dkde1d(x, fhat)
+  fhat = Rfast2::kernel(x)
+    
   rhox = f0(x, ...)/fhat
   
   rhox[is.na(rhox)] = 0
