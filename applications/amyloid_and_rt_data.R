@@ -302,3 +302,87 @@ ggsave("applications/RT_dist.png",
        units = "mm",
        dpi = 700)
 
+# Assuming reactions times are normally distributed,
+
+theta = round(c(mean(rt_x), sd(rt_x)), 2)
+
+res_norm = ar_mc_pvalue(rt_x, 
+                        M = 1000,
+                        f0 = "dnorm", 
+                        mean = theta[1], 
+                        sd = theta[2])
+
+rho_norm = res_norm$rho_m
+rho_norm
+rho
+
+hist(res_norm$rho_mc, probability = TRUE)
+abline(v = rho_norm, lwd = 2)
+
+res_norm$p_value
+
+d = poibin::dpoibin(0:n, pp = res_norm$rhos)
+
+plot(0:n/n,
+     d,
+     xlim = c(rho_norm - 0.05, rho_norm + 0.05),
+     type = "h",
+     lwd = 2,
+     ylab = "Probability",
+     xlab = expression(rho(X)),
+     col = "darkgray")
+
+abline(v = rho_norm, 
+       lty = 2, 
+       lwd = 2,
+       col = "red")
+
+round(poibin::qpoibin(c(0.025, 0.975), 
+                      pp = rep(rho_norm, n))/n, 3)
+
+x = seq(0, 2.5, length.out = 1000)
+
+df_norm = data.frame(x = x, 
+                y = dnorm(x, 
+                          mean = theta[1], 
+                          sd = theta[2]))
+
+p_norm = ggplot(data = data.frame(RT = rt_x), aes(x = RT)) +
+  geom_histogram(aes(y = after_stat(density))) +
+  ylab("Density") +
+  geom_line(data = df_norm, 
+            aes(x = x, y = y), 
+            color = "red",
+            linewidth = 1.7) +
+  theme(axis.text = element_text(size = 16),
+        axis.title = element_text(size = 18),
+        legend.text = element_text(size = 16),
+        legend.title = element_text(size = 18),
+        plot.tag = element_text(size = 18,
+                                face = "bold"))
+
+p_norm
+
+ggsave("applications/RT_dist_norm.png",
+       plot = p_norm,
+       device = png, 
+       width = 400, 
+       height = 200, 
+       units = "mm",
+       dpi = 700)
+
+p1 = p1 + geom_line(data = df_norm, 
+                    aes(x = x, y = y), 
+                    color = "blue",
+                    linewidth = 1.7,
+                    linetype = "dashed")
+
+p1
+
+ggsave("applications/RT_dist.png",
+       plot = p1,
+       device = png, 
+       width = 400, 
+       height = 200, 
+       units = "mm",
+       dpi = 700)

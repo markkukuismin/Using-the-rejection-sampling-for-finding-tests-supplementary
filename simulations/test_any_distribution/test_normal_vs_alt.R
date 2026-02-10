@@ -40,7 +40,7 @@ n = 20 # 20, 30, 50
 
 # Power (H_0 not true)
 
-alt_dist = "runif" # t, mixture, logistic, runif
+alt_dist = "unif" # t, mixture, logistic, unif
 
 prob = 0.5
 
@@ -62,7 +62,7 @@ for(j in 1:M){
     ind = rbinom(n, 1, prob = prob)
     x = ind*x1 + (1 - ind)*x2
   }
-  if(alt_dist == "runif") x = runif(n)
+  if(alt_dist == "unif") x = runif(n)
   
   ks_stat[j] = ks.test(x, 
                        "pnorm",

@@ -40,11 +40,11 @@ ar_dist = function(x){
 
 set.seed(1)
 
-n = 20 # 20, 30, 50
+n = 50 # 20, 30, 50
 
 # Power (H_0 not true)
 
-alt_dist = "mvt" # mvnorm, mvnormmix, mvt, rmvlogis, unif
+alt_dist = "mvnorm" # mvnorm, mvnormmix, mvt, rmvlogis, unif
 
 p = 3
 

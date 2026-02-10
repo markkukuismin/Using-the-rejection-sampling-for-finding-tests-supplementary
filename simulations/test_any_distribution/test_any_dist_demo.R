@@ -16,9 +16,10 @@ ar_dist = function(x, f0 = "dnorm", ...){
   
   n = length(x)
   
-  fhat = kdevine::kde1d(x)
+  # fhat = kdevine::kde1d(x)
+  # fhat = kdevine::dkde1d(x, fhat)
   
-  fhat = kdevine::dkde1d(x, fhat)
+  fhat = Rfast2::kernel(x)
   
   rhox = f0(x, ...)/fhat
   
@@ -35,7 +36,7 @@ ar_dist = function(x, f0 = "dnorm", ...){
 
 set.seed(1)
 
-n = 50 # 20, 30, 50
+n = 20 # 20, 30, 50
 
 # Power (H_0 not true)
 

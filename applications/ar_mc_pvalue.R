@@ -11,8 +11,9 @@ ar_mc_pvalue = function(x = NULL, M = 1000, f0 = "dnorm", ...){
   
   n = length(x)
   
-  fhat = kdevine::kde1d(x)
-  fhat = kdevine::dkde1d(x, fhat)
+  #fhat = kdevine::kde1d(x)
+  #fhat = kdevine::dkde1d(x, fhat)
+  fhat = Rfast2::kernel(x)
   
   rhox = f0(x, ...)/fhat
   
