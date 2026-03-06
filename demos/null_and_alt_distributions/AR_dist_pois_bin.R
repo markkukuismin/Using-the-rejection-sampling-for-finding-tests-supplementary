@@ -167,7 +167,18 @@ for(n in N){
         lwd = 4, 
         col = rgb(red=0, green=0, blue=1, alpha=0.5))
   
-  abline(v = n*rho, lty = 2, lwd = 4)
+  abline(v = n*rho, lty = 2, lwd = 4, col = "red")
+  
+  # f = true pop. dist
+  f = function(x) extraDistr::dlst(x, df = 3, mu = 0.1, sigma = 1)
+  f0 = function(x) dnorm(x, mean = m, sd = s) # f_0 (theoretical f)
+  
+  tvd = integrate(function(x) abs(f0(x) - f(x)), lower = -Inf, upper = Inf)
+  
+  # The value the AR stat converges when the population
+  # distribution is f
+  
+  abline(v = n*(1 - 0.5*tvd$value), lwd = 4)
   
   xx = seq(0, n, length.out = 10^4)
   
