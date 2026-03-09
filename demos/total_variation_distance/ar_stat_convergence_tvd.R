@@ -205,10 +205,8 @@ p_all = ggplot(df_all, aes(x=n, y=rho, color = f)) +
        y = expression(hat(rho)(X)),
        x = expression(n)) +
   theme(text=element_text(size=21)) +
-  scale_x_continuous(
-    limits = c(min(n), NA),
-    breaks = n
-  )
+  scale_x_continuous(breaks = n,
+                     labels = as.character(n))
 
 hyp_edit = c(`Alt` = "H[0]~is~false",
              `Null` = "H[0]~is~true")
